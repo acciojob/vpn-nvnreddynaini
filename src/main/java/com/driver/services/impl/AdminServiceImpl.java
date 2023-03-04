@@ -50,29 +50,29 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public ServiceProvider addCountry(int serviceProviderId, String countryName){
-        if(countryName.equalsIgnoreCase("IND") || countryName.equalsIgnoreCase("USA") || countryName.equalsIgnoreCase("JPN") || countryName.equalsIgnoreCase("CHI") || countryName.equalsIgnoreCase("AUS")){
+        if(countryName.toUpperCase().equals("IND") || countryName.toUpperCase().equals("USA") || countryName.toUpperCase().equals("JPN") || countryName.toUpperCase().equals("CHI") || countryName.toUpperCase().equals("AUS")){
 
             Country country = new Country();
 
             ServiceProvider serviceProvider = serviceProviderRepository1.findById(serviceProviderId).get();
 
-            if(countryName.equalsIgnoreCase("IND")){
+            if(countryName.toUpperCase().equals("IND")){
                 country.setCountryName(CountryName.IND);
                 country.setCode(CountryName.IND.toCode());
             }
-            if(countryName.equalsIgnoreCase("USA")){
+            if(countryName.toUpperCase().equals("USA")){
                 country.setCountryName(CountryName.USA);
                 country.setCode(CountryName.USA.toCode());
             }
-            if(countryName.equalsIgnoreCase("JPN")){
+            if(countryName.toUpperCase().equals("JPN")){
                 country.setCountryName(CountryName.JPN);
                 country.setCode(CountryName.JPN.toCode());
             }
-            if(countryName.equalsIgnoreCase("CHI")){
+            if(countryName.toUpperCase().equals("CHI")){
                 country.setCountryName(CountryName.CHI);
                 country.setCode(CountryName.CHI.toCode());
             }
-            if(countryName.equalsIgnoreCase("AUS")){
+            if(countryName.toUpperCase().equals("AUS")){
                 country.setCountryName(CountryName.AUS);
                 country.setCode(CountryName.AUS.toCode());
             }
