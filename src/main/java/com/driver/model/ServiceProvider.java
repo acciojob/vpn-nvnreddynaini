@@ -22,8 +22,7 @@ public class ServiceProvider {
     @OneToMany(mappedBy = "serviceProvider", cascade = CascadeType.ALL)
     private List<Country> countryList;
 
-    @ManyToMany
-    @JoinColumn
+    @ManyToMany(mappedBy = "serviceProviderList",cascade = CascadeType.ALL)
     private List<User> users;
 
     public ServiceProvider(Integer id, String name, Admin admin, List<Connection> connectionList, List<Country> countryList, List<User> users) {
@@ -91,6 +90,4 @@ public class ServiceProvider {
         this.users = users;
     }
 
-//    public ServiceProvider get() {
-//    }
 }

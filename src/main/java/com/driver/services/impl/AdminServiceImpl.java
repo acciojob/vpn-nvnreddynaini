@@ -8,12 +8,8 @@ import com.driver.repository.AdminRepository;
 import com.driver.repository.CountryRepository;
 import com.driver.repository.ServiceProviderRepository;
 import com.driver.services.AdminService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
-import java.util.function.Supplier;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -28,31 +24,61 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void register(String username, String password) {
-        Admin admin = new Admin(username,password);
+
+        Admin admin = new Admin();
+
+        admin.setUsername(username);
+        admin.setPassword(password);
+
         adminRepository1.save(admin);
     }
 
     @Override
     public void addServiceProvider(int adminId, String providerName) {
-        ServiceProvider serviceProvider = new ServiceProvider(adminId,providerName);
-        serviceProviderRepository1.save(serviceProvider);
+        Admin admin = adminRepository1.findById(adminId).get();
+
+        ServiceProvider serviceProvider = new ServiceProvider();
+
+        serviceProvider.setAdmin(admin);
+        serviceProvider.setName(providerName);
+        admin.getServiceProviders().add(serviceProvider);
+
+        adminRepository1.save(admin);
     }
 
     @Override
     public ServiceProvider addCountry(int serviceProviderId, String countryName){
-        try{
-            List<Country> countries = new ArrayList<>();
-            Optional<ServiceProvider> serviceProvider = serviceProviderRepository1.findById(serviceProviderId);
-            countries = serviceProvider.get().getCountryList();
-            Country country = new Country(CountryName.valueOf(countryName));
-            countries.add(country);
-            serviceProvider.get().setCountryList(countries);
-            ObjectMapper mapper = new ObjectMapper();
-            ServiceProvider provider = mapper.convertValue(serviceProvider,ServiceProvider.class);
-            serviceProviderRepository1.save(provider);
-            return provider;
-        }catch(Exception e){
-            System.out.println("Error");
+        if(countryName.equalsIgnoreCase("IND") || countryName.equalsIgnoreCase("USA") || countryName.equalsIgnoreCase("JPN") || countryName.equalsIgnoreCase("CHI") || countryName.equalsIgnoreCase("AUS")){
+
+            Country country = new Country();
+
+            ServiceProvider serviceProvider = serviceProviderRepository1.findById(serviceProviderId).get();
+
+            if(countryName.equalsIgnoreCase("IND")){
+                country.setCountryName(CountryName.IND);
+                country.setCode(CountryName.IND.toCode());
+            }
+            else if(countryName.equalsIgnoreCase("USA")){
+                country.setCountryName(CountryName.USA);
+                country.setCode(CountryName.USA.toCode());
+            }
+            else if(countryName.equalsIgnoreCase("JPN")){
+                country.setCountryName(CountryName.JPN);
+                country.setCode(CountryName.JPN.toCode());
+            }
+            else if(countryName.equalsIgnoreCase("CHI")){
+                country.setCountryName(CountryName.CHI);
+                country.setCode(CountryName.CHI.toCode());
+            }
+            else if(countryName.equalsIgnoreCase("AUS")){
+                country.setCountryName(CountryName.AUS);
+                country.setCode(CountryName.AUS.toCode());
+            }
+            country.setServiceProvider(serviceProvider);
+            serviceProvider.getCountryList().add(country);
+            serviceProviderRepository1.save(serviceProvider);
+
+            return serviceProvider;
         }
         return null;
     }

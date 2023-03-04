@@ -10,6 +10,9 @@ public class Connection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    public Connection() {
+    }
+
     @ManyToOne
     @JoinColumn
     private ServiceProvider serviceProvider;
