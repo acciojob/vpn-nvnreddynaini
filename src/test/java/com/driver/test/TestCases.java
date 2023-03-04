@@ -20,8 +20,8 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class TestCases {
 
-    @Test
-    public void run() {
-        System.out.println("running");
-    }
+//    @Test
+//    public void run() {
+//        System.out.println("running");
+//    }
 }
