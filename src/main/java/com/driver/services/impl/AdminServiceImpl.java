@@ -23,7 +23,7 @@ public class AdminServiceImpl implements AdminService {
     CountryRepository countryRepository1;
 
     @Override
-    public void register(String username, String password) {
+    public Admin register(String username, String password) {
 
         Admin admin = new Admin();
 
@@ -31,10 +31,11 @@ public class AdminServiceImpl implements AdminService {
         admin.setPassword(password);
 
         adminRepository1.save(admin);
+        return admin;
     }
 
     @Override
-    public void addServiceProvider(int adminId, String providerName) {
+    public Admin addServiceProvider(int adminId, String providerName) {
         Admin admin = adminRepository1.findById(adminId).get();
 
         ServiceProvider serviceProvider = new ServiceProvider();
@@ -44,6 +45,7 @@ public class AdminServiceImpl implements AdminService {
         admin.getServiceProviders().add(serviceProvider);
 
         adminRepository1.save(admin);
+        return admin;
     }
 
     @Override

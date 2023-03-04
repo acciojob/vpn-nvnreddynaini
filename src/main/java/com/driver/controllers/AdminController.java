@@ -17,14 +17,14 @@ public class AdminController {
     @PostMapping("/register")
     public ResponseEntity<Void> registerAdmin(@RequestParam String username, @RequestParam String password){
         //create an admin and return
-        adminService.register(username, password);
+        Admin admin = adminService.register(username, password);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/addProvider")
     public ResponseEntity<Void> addServiceProvider(@RequestParam int adminId, @RequestParam String providerName){
         //add a serviceProvider under the admin and return updated admin
-        adminService.addServiceProvider(adminId, providerName);
+        Admin admin = adminService.addServiceProvider(adminId, providerName);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

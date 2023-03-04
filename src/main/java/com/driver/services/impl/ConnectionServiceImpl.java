@@ -27,7 +27,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         if(user.getMaskedIp()!=null){
             throw new Exception("Already connected");
         }
-        else if(countryName.equalsIgnoreCase(user.getCountry().getCountryName().toString())){
+        else if(countryName.equalsIgnoreCase(user.getOriginalCountry().getCountryName().toString())){
             return user;
         }
         else {
@@ -102,7 +102,7 @@ public class ConnectionServiceImpl implements ConnectionService {
             String str = user1.getMaskedIp();
             String ccCode = str.substring(0,3);
 
-            if(ccCode.equals(user.getCountry().getCode()))
+            if(ccCode.equals(user.getOriginalCountry().getCode()))
                 return user;
             else {
                 String countryName = "";
@@ -128,10 +128,10 @@ public class ConnectionServiceImpl implements ConnectionService {
 
         }
         else{
-            if(user1.getCountry().equals(user.getCountry())){
+            if(user1.getOriginalCountry().equals(user.getOriginalCountry())){
                 return user;
             }
-            String countryName = user1.getCountry().getCountryName().toString();
+            String countryName = user1.getOriginalCountry().getCountryName().toString();
             User user2 =  connect(senderId,countryName);
             if (!user2.getConnected()){
                 throw new Exception("Cannot establish communication");

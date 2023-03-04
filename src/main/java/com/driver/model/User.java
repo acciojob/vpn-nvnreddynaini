@@ -27,6 +27,21 @@ public class User {
     @JoinColumn
     private Country country;
 
+    public User() {
+    }
+
+    public User(Integer id, String username, String password, String originalIp, String maskedIp, boolean connected, List<ServiceProvider> serviceProviderList, List<Connection> connectionList, Country country) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.originalIp = originalIp;
+        this.maskedIp = maskedIp;
+        this.connected = connected;
+        this.serviceProviderList = serviceProviderList;
+        this.connectionList = connectionList;
+        this.country = country;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -91,11 +106,11 @@ public class User {
         this.connectionList = connectionList;
     }
 
-    public Country getCountry() {
+    public Country getOriginalCountry() {
         return country;
     }
 
-    public void setCountry(Country country) {
+    public void setOriginalCountry(Country country) {
         this.country = country;
     }
 }
